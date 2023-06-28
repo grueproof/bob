@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/style.css" />
+  <title>Vite App</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .message-container {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .user-message {
+      background-color: #eaf2ff;
+      color: #333;
+    }
+
+    .assistant-message {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .error-message {
+      background-color: #ffcccc;
+      color: #cc0000;
+    }
+
+    .message-content {
+      margin: 0 0 10px;
+    }
+
+    .user-message .message-content {
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Chat with AI</h1>
+    <div id="result"></div>
+    <form>
+      <label for="prompt">Your Message:</label>
+      <textarea name="prompt" maxlength="160" rows="4" style="resize: vertical;"></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

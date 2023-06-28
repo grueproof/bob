@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Chat with GPT-3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease;
+            padding: 20px;
+        }
+
+        body.light-mode {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        #chatBox {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            height: 400px;
+            overflow-y: auto;
+            transition: border-color 0.3s ease;
+        }
+
+        body.light-mode #chatBox {
+            border-color: #000000;
+        }
+
+        body.dark-mode #chatBox {
+            border-color: #ffffff;
+        }
+
+        #userInput {
+            width: 70%;
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+        }
+
+
+
+        #chatForm p {
+            margin: 0;
+        }
+
+        #chatForm .user {
+            color: blue;
+        }
+
+        #chatForm .assistant {
+            color: red;
+        }
+
+        .spinner {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid blue;
+            width: 80px;
+            height: 80px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -40px;
+            margin-left: -40px;
+            display: none;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chatBox">
+        <!-- Conversation messages will be added here. -->
+    </div>
+    <div class="spinner" id="spinner"></div>
+
+    <form id="chatForm">
+        <input type="text" id="userInput" placeholder="Type a message..." required />
+        <select id="systemRole">
+            <option value="">None</option>
+            <option
+                value="You are an AI assistant capable of generating creative and detailed character backstories. Provide rich narratives that adhere to typical fantasy tropes, but also suggest unique twists that could make the characters more interesting.">
+                Character Creation Guidance</option>
+            <option
+                value="You are an AI assistant designed to help with world-building in tabletop role-playing games. Offer descriptive details about different settings, environments, cultures, and histories. Make sure your suggestions are consistent with a high fantasy medieval setting.">
+                World-Building</option>
+            <option
+                value="You are an AI assistant adept at creating complex, engaging, and multi-layered storylines for tabletop RPG campaigns. Generate plot hooks, story arcs, and campaign ideas that Game Masters can use. Include a mix of combat, exploration, and roleplay opportunities.">
+                Plot Generation</option>
+            <option
+                value="You are an AI assistant skilled in explaining the rules of various tabletop RPG systems. You are to help players understand the rules, mechanics, and strategies of the game they are playing, be it Dungeons & Dragons, Pathfinder, or another system.">
+                Rule Explanation</option>
+        </select>
+        <button type="submit">Send</button>
+    </form>
+
+    <button id="exportBtn">Export Conversation</button>
+    <button id="exportMdBtn">Export Conversation as Markdown</button>
+
+    <input type="file" id="importBtn">
+    <button id="toggleDarkModeBtn">Toggle Dark Mode</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="chat.js"></script>
+</body>
+
+</html>
