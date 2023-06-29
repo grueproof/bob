@@ -111,21 +111,38 @@
 
     <form id="chatForm">
         <input type="text" id="userInput" placeholder="Type a message..." required />
-        <select id="systemRole">
-            <option value="">None</option>
-            <option
-                value="You are an AI assistant capable of generating creative and detailed character backstories. Provide rich narratives that adhere to typical fantasy tropes, but also suggest unique twists that could make the characters more interesting.">
-                Character Creation Guidance</option>
-            <option
-                value="You are an AI assistant designed to help with world-building in tabletop role-playing games. Offer descriptive details about different settings, environments, cultures, and histories. Make sure your suggestions are consistent with a high fantasy medieval setting.">
-                World-Building</option>
-            <option
-                value="You are an AI assistant adept at creating complex, engaging, and multi-layered storylines for tabletop RPG campaigns. Generate plot hooks, story arcs, and campaign ideas that Game Masters can use. Include a mix of combat, exploration, and roleplay opportunities.">
-                Plot Generation</option>
-            <option
-                value="You are an AI assistant skilled in explaining the rules of various tabletop RPG systems. You are to help players understand the rules, mechanics, and strategies of the game they are playing, be it Dungeons & Dragons, Pathfinder, or another system.">
-                Rule Explanation</option>
+
+        <!-- Add a new dropdown for the game type -->
+        <select id="gameType" style="display: block; margin-bottom: 10px;">
+            <option value="">Select a Game</option>
+            <option value="Dungeons & Dragons 5E">Dungeons & Dragons 5E</option>
+            <option value="Pathfinder">Pathfinder</option>
+            <option value="Call of Cthulhu">Call of Cthulhu</option>
+            <option value="Warhammer Fantasy Roleplay">Warhammer Fantasy Roleplay</option>
+            <option value="Shadowrun">Shadowrun</option>
+            <option value="World of Darkness">World of Darkness</option>
+            <option value="Star Wars Roleplaying Game">Star Wars Roleplaying Game</option>
+            <option value="Starfinder">Starfinder</option>
+            <option value="GURPS">GURPS</option>
+            <option value="FATE">FATE</option>
+            <option value="Savage Worlds">Savage Worlds</option>
+            <option value="Cyberpunk 2020/Red">Cyberpunk 2020/Red</option>
+            <option value="Ironsworn">Ironsworn</option>
+            <option value="Ironsworn: Starforged">Ironsworn: Starforged</option>
         </select>
+
+        <!-- Update the system role dropdown to be more generic -->
+        <select id="systemRole" style="display: block; margin-bottom: 10px;">
+            <option value="">Select a Role</option>
+            <option value="You are an AI assistant.">AI Assistant</option>
+            <option value="You are an AI assistant capable of helping with world-building.">World-Building</option>
+            <option value="You are an AI assistant capable of providing game rule explanations.">Rule Explainer</option>
+            <option value="You are an AI assistant capable of providing detailed game world information.">Game World
+                Informer</option>
+            <option value="You are an AI assistant capable of generating plots, NPCs, and monsters.">Plots, NPCs, and
+                Monsters</option>
+        </select>
+
         <button type="submit">Send</button>
     </form>
 

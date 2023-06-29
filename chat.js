@@ -20,13 +20,21 @@ chatForm.addEventListener('submit', async (e) => {
     const message = userInput.value;
 
     if (isFirstMessage) {
-        // Add the system message to the conversation
-        const systemRole = document.querySelector('#systemRole');
-        const systemMessage = systemRole.value;
+        // Get the selected game type and system role
+        const gameTypeSelect = document.querySelector('#gameType');
+        const gameType = gameTypeSelect.value;
+
+        const systemRoleSelect = document.querySelector('#systemRole');
+        const systemRole = systemRoleSelect.value;
+
+        // Create a unified system role message
+        const systemMessage = `${systemRole} Provide assistance on ${gameType}.`;
+
         if (systemMessage) {
             conversation.push({ role: 'system', content: systemMessage });
         }
-        systemRole.style.display = 'none';
+        gameTypeSelect.disabled = true;
+        systemRoleSelect.disabled = true;
         isFirstMessage = false;
     }
 
