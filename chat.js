@@ -118,17 +118,6 @@ function addMessageToChatBox(role, message) {
     }
 }
 
-
-// Add event listener for the pin button
-/**
-chatBox.addEventListener('click', function (event) {
-    if (event.target.textContent === '📌') {
-        const message = event.target.parentElement.textContent.slice(0, -3);
-        addMessageToPinnedMessages(message);
-    }
-});
-*/
-
 // Add a function to add a message to the pinned messages
 function addMessageToPinnedMessages(message) {
 
@@ -140,7 +129,6 @@ function addMessageToPinnedMessages(message) {
     pinnedMessages.push(message);
     const pinnedMessageElem = document.createElement('p');
     pinnedMessageElem.textContent = '📍' + message;
-    //pinnedMessageElem.style.whiteSpace = 'pre-wrap';
     pinnedMessageElem.style.cursor = 'pointer';
     pinnedMessageElem.className = 'pinned-message'; // Assign the pinned-message class
 
