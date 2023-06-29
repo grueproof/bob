@@ -6,7 +6,7 @@ It's a baby project. So, have fun. PR's welcome.
 
 ## Features
 
-* Maintains the conversation ont he client
+* Maintains the conversation on the client
 * Allows the user to set the AI's system role on first post (see the spiffy dropdown), setting the tone for the conversation. 
 * Allows the user to export the conversation for continuity
 * Allows the user to import an old conversation to pick up where you left off. 
