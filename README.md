@@ -14,7 +14,7 @@ It's a baby project. So, have fun. PR's welcome.
 
 ## Config info
 * Developed on Node 19.2.0 (apparently I am living dangerously?)
-* Developed using Vite, but I'm told that you can jsut use Express too. 
+* Developed using Vite, but I'm told that you can just use Express too. 
 
 ## To run this puppy
 * You'll need to add a .env file with your OPENAI api KEY. (OPENAI="$foo")
