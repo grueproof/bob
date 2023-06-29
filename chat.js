@@ -93,8 +93,6 @@ importBtn.addEventListener('change', async (e) => {
 function addMessageToChatBox(role, message) {
     const messageElem = document.createElement('p');
     const roleElem = document.createElement('span');
-    const pinButton = document.createElement('button');
-
     roleElem.textContent = `${role === 'user' ? 'You' : 'Bob'}: `;
     roleElem.style.color = role === 'user' ? 'yellow' : 'green';
     roleElem.style.fontWeight = 'bold';
@@ -105,6 +103,9 @@ function addMessageToChatBox(role, message) {
     chatBox.appendChild(messageElem);
     chatBox.scrollTop = chatBox.scrollHeight;
 
+    // Store the original message content along with its paragraph element
+    messageElem.messageContent = message;
+
     // Add pin button to assistant messages
     if (role === 'assistant') {
         const pinBtn = document.createElement('button');
@@ -112,19 +113,21 @@ function addMessageToChatBox(role, message) {
         pinBtn.style.border = 'none';
         pinBtn.style.background = 'none';
         pinBtn.style.cursor = 'pointer';
-        //pinBtn.addEventListener('click', () => pinMessage(messageId));
+        pinBtn.addEventListener('click', () => pinMessage(messageElem));
         messageElem.appendChild(pinBtn);
     }
 }
 
+
 // Add event listener for the pin button
+/**
 chatBox.addEventListener('click', function (event) {
     if (event.target.textContent === '📌') {
         const message = event.target.parentElement.textContent.slice(0, -3);
         addMessageToPinnedMessages(message);
     }
 });
-
+*/
 
 // Add a function to add a message to the pinned messages
 function addMessageToPinnedMessages(message) {
@@ -164,36 +167,11 @@ function addMessageToPinnedMessages(message) {
 }
 
 // Add function to handle pinning of messages
-function pinMessage(messageId) {
-    console.log('Pinning message with ID:', messageId);
-    // Check if the message is already pinned
-    if (pinnedMessages.includes(messageId)) {
-        alert('This message is already pinned.');
-        return;
-    }
-
-    // Add the message ID to the pinned messages
-    pinnedMessages.push(messageId);
-
-    // Find the message in the conversation
-    const message = conversation.find(msg => msg.id === messageId);
-
-    if (message) {
-        // Create a new paragraph element for the pinned message
-        const pinnedMessageElem = document.createElement('p');
-        pinnedMessageElem.textContent = message.content;
-        pinnedMessageElem.style.whiteSpace = 'pre-wrap';
-        pinnedMessageElem.style.cursor = 'pointer';
-        pinnedMessageElem.className = 'pinned-message'; // Assign the pinned-message class
-        pinnedMessageElem.addEventListener('click', () => showOverlay(message.content));
-
-        // Add the pinned message to the pinned messages area
-        document.querySelector('#pinnedMessages').appendChild(pinnedMessageElem);
-        //pinnedMessagesArea.appendChild(pinnedMessageElem);
-    } else {
-        console.error('Could not find the message to pin.');
-    }
+function pinMessage(messageElem) {
+    const messageContent = messageElem.messageContent;
+    addMessageToPinnedMessages(messageContent);
 }
+
 // Add an event listener to the pinned messages div
 document.querySelector('#pinnedMessages').addEventListener('click', function (event) {
     if (event.target.tagName === 'P') {
