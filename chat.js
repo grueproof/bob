@@ -86,7 +86,13 @@ importBtn.addEventListener('change', async (e) => {
 
 function addMessageToChatBox(role, message) {
     const messageElem = document.createElement('p');
-    messageElem.innerHTML = `${role === 'user' ? 'You' : 'GPT-3'}: ${message.replace(/\n/g, '<br>')}`;
+    const roleElem = document.createElement('span');
+    roleElem.textContent = `${role === 'user' ? 'You' : 'Bob'}: `;
+    roleElem.style.color = role === 'user' ? 'yellow' : 'green';
+    roleElem.style.fontWeight = 'bold';
+
+    messageElem.appendChild(roleElem);
+    messageElem.innerHTML += message.replace(/\n/g, '<br>'); // Note the use of += to append the message after the role
     messageElem.style.whiteSpace = 'pre-wrap';  // This line will make sure line breaks are preserved
     chatBox.appendChild(messageElem);
     chatBox.scrollTop = chatBox.scrollHeight;
