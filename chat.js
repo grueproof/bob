@@ -14,11 +14,11 @@ let isConversationSaved = true;
 let isFirstMessage = true;
 
 // Add event listener for form submission
+// Add event listener for form submission
 chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const message = userInput.value;
 
-    // If this is the first message, get the selected game type and system role and create a unified system role message
     if (isFirstMessage) {
         const gameTypeSelect = document.querySelector('#gameType');
         const gameType = gameTypeSelect.value;
@@ -33,36 +33,39 @@ chatForm.addEventListener('submit', async (e) => {
         isFirstMessage = false;
     }
 
-    // Add the user's message to the conversation and the chat box
     addMessageToChatBox('user', message);
     conversation.push({ role: 'user', content: message });
 
-    // Clear the input field and show the spinner
     userInput.value = '';
     spinner.style.display = 'block';
 
     try {
-        // Send the conversation to the server and get the AI's response
         const res = await fetch('http://localhost:8089/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ messages: conversation })
         });
-        const data = await res.json();
-        const aiMessage = data.response.content;;
 
-        // Add the AI's response to the conversation and the chat box
-        addMessageToChatBox('assistant', aiMessage);
-        conversation.push({ role: 'assistant', content: aiMessage });
+        if (res.ok) {
+            const data = await res.json();
+            const aiMessage = data.response.content;;
+
+            addMessageToChatBox('assistant', aiMessage);
+            conversation.push({ role: 'assistant', content: aiMessage });
+        } else {
+            throw new Error('Response not ok');
+        }
 
     } catch (error) {
         console.error(error);
+        addMessageToChatBox('assistant', 'Sorry, there was an error. Please try again.');
+        conversation.push({ role: 'assistant', content: 'Sorry, there was an error. Please try again.' });
     } finally {
-        // Hide the spinner
         spinner.style.display = 'none';
     }
     isConversationSaved = false;
 });
+
 
 // Add event listener for export button click
 exportBtn.addEventListener('click', () => {
