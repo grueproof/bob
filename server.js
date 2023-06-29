@@ -27,7 +27,7 @@ app.post('/chat', async (req, res) => {
         conversation = messages; // Here's the updated line
 
         const aiResponse = await openai.createChatCompletion({
-            model: 'gpt-3.5-turbo',
+            model: 'gpt-3.5-turbo-16k',
             messages: conversation,
         });
 
