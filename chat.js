@@ -12,6 +12,7 @@ const exportMdBtn = document.querySelector('#exportMdBtn');
 let conversation = [];
 let isConversationSaved = true;
 let isFirstMessage = true;
+let pinnedMessages = [];
 
 // Add event listener for form submission
 // Add event listener for form submission
@@ -101,7 +102,97 @@ function addMessageToChatBox(role, message) {
     messageElem.style.whiteSpace = 'pre-wrap';
     chatBox.appendChild(messageElem);
     chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Store the original message content along with its paragraph element
+    messageElem.messageContent = message;
+
+    // Add pin button to assistant messages
+    if (role === 'assistant') {
+        const pinBtn = document.createElement('button');
+        pinBtn.textContent = '📌'; // pin emoji
+        pinBtn.style.border = 'none';
+        pinBtn.style.background = 'none';
+        pinBtn.style.cursor = 'pointer';
+        pinBtn.addEventListener('click', () => pinMessage(messageElem));
+        messageElem.appendChild(pinBtn);
+    }
 }
+
+
+// Add event listener for the pin button
+/**
+chatBox.addEventListener('click', function (event) {
+    if (event.target.textContent === '📌') {
+        const message = event.target.parentElement.textContent.slice(0, -3);
+        addMessageToPinnedMessages(message);
+    }
+});
+*/
+
+// Add a function to add a message to the pinned messages
+function addMessageToPinnedMessages(message) {
+
+    if (pinnedMessages.indexOf(message) > -1) {
+        alert('This message is already pinned.');
+        return;
+    }
+
+    pinnedMessages.push(message);
+    const pinnedMessageElem = document.createElement('p');
+    pinnedMessageElem.textContent = '📍' + message;
+    //pinnedMessageElem.style.whiteSpace = 'pre-wrap';
+    pinnedMessageElem.style.cursor = 'pointer';
+    pinnedMessageElem.className = 'pinned-message'; // Assign the pinned-message class
+
+    // Add right-click event listener
+    pinnedMessageElem.addEventListener('contextmenu', function (event) {
+        event.preventDefault(); // Prevent the default right-click menu from showing
+
+        // Confirm with the user that they want to remove the pin
+        let confirmRemove = confirm('Are you sure you want to remove this pin?');
+
+        if (confirmRemove) {
+            // Remove the message from the array
+            const index = pinnedMessages.indexOf(message);
+            if (index > -1) {
+                pinnedMessages.splice(index, 1);
+            }
+
+            // Remove the message from the display
+            pinnedMessageElem.remove();
+        }
+    });
+
+    document.querySelector('#pinnedMessages').appendChild(pinnedMessageElem);
+}
+
+// Add function to handle pinning of messages
+function pinMessage(messageElem) {
+    const messageContent = messageElem.messageContent;
+    addMessageToPinnedMessages(messageContent);
+}
+
+// Add an event listener to the pinned messages div
+document.querySelector('#pinnedMessages').addEventListener('click', function (event) {
+    if (event.target.tagName === 'P') {
+        showOverlay(event.target.textContent);
+    }
+});
+
+// Add a function to show the overlay
+function showOverlay(content) {
+    document.querySelector('#overlayContent').textContent = content;
+    document.querySelector('#overlay').style.display = 'block';
+}
+
+// Add a function to hide the overlay
+function hideOverlay() {
+    document.querySelector('#overlayContent').textContent = '';
+    document.querySelector('#overlay').style.display = 'none';
+}
+
+// Add an event listener to the overlay to hide it when clicked
+document.querySelector('#overlay').addEventListener('click', hideOverlay);
 
 // Add event listener for beforeunload to prompt the user to save the conversation
 window.addEventListener('beforeunload', (event) => {
