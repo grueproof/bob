@@ -7,6 +7,7 @@ const importBtn = document.querySelector('#importBtn');
 const spinner = document.querySelector('#spinner');
 const toggleDarkModeBtn = document.querySelector('#toggleDarkModeBtn');
 const exportMdBtn = document.querySelector('#exportMdBtn');
+const exportPinnedBtn = document.querySelector('#exportPinnedBtn');
 
 // Initialize variables
 let conversation = [];
@@ -148,10 +149,14 @@ function addMessageToPinnedMessages(message) {
 
             // Remove the message from the display
             pinnedMessageElem.remove();
+            if (pinnedMessages.length === 0) {
+                exportPinnedBtn.style.display = 'none';
+            }
         }
     });
 
     document.querySelector('#pinnedMessages').appendChild(pinnedMessageElem);
+    exportPinnedBtn.style.display = 'block';
 }
 
 // Add function to handle pinning of messages
@@ -216,3 +221,29 @@ function messageToMarkdown(message) {
     const speaker = message.role === 'user' ? 'You' : 'GPT-3';
     return `**${speaker}**: ${message.content.replace(/\n/g, '  \n')}`;
 }
+
+function messageToMarkdown(message) {
+    return `* ${message}\n`;
+}
+
+
+
+exportPinnedBtn.addEventListener('click', () => {
+    // Convert the pinned messages to Markdown
+    const markdownPinnedMessages = pinnedMessages.map(messageToMarkdown).join('');
+
+    // Create a Blob with the Markdown content
+    const blob = new Blob([markdownPinnedMessages], { type: 'text/markdown' });
+
+    // Create a URL for the Blob
+    const url = URL.createObjectURL(blob);
+
+    // Create a download link and click it
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'pinned_items.md';
+    a.click();
+
+    // Release the reference to the Blob
+    URL.revokeObjectURL(url);
+});
