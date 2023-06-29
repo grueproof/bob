@@ -14,6 +14,9 @@
             font-family: 'IBM Plex Mono', monospace;
             transition: background-color 0.3s ease;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
 
         body.light-mode {
@@ -33,6 +36,7 @@
             height: 400px;
             overflow-y: auto;
             transition: border-color 0.3s ease;
+            flex-grow: 1;
         }
 
         body.light-mode #chatBox {
@@ -53,19 +57,53 @@
             padding: 10px 20px;
         }
 
+        form#chatForm {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
 
+        form#chatForm select,
+        form#chatForm input[type="text"] {
+            flex-grow: 1;
+            padding: 5px;
+            font-size: 14px;
+        }
 
-        #chatForm p {
-            margin: 0;
+        form#chatForm button[type="submit"],
+        #buttons .button {
+            padding: 5px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #ccc;
+            border: none;
+            color: black;
+        }
+
+        form#chatForm button[type="submit"]:hover,
+        #buttons .button:hover {
+            background-color: #aaa;
         }
 
         #chatForm .user {
-            color: blue;
+            color: yellow;
         }
 
         #chatForm .assistant {
-            color: red;
+            color: green;
         }
+
+        #exportBtn,
+        #exportMdBtn,
+        #toggleDarkModeBtn {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+
 
         .spinner {
             border: 16px solid #f3f3f3;
@@ -113,9 +151,7 @@
 
     <form id="chatForm">
         <input type="text" id="userInput" placeholder="Type a message..." required />
-
-        <!-- Add a new dropdown for the game type -->
-        <select id="gameType" style="display: block; margin-bottom: 10px;">
+        <select id="gameType">
             <option value="">Select a Game</option>
             <option value="Call of Cthulhu">Call of Cthulhu</option>
             <option value="Cyberpunk 2020/Red">Cyberpunk 2020/Red</option>
@@ -132,9 +168,7 @@
             <option value="Warhammer Fantasy Roleplay">Warhammer Fantasy Roleplay</option>
             <option value="World of Darkness">World of Darkness</option>
         </select>
-
-        <!-- Update the system role dropdown to be more generic -->
-        <select id="systemRole" style="display: block; margin-bottom: 10px;">
+        <select id="systemRole">
             <option value="">Select a Role</option>
             <option value="You are an AI assistant.">AI Assistant</option>
             <option value="You are an AI assistant capable of helping with world-building.">World-Building</option>
@@ -148,11 +182,13 @@
         <button type="submit">Send</button>
     </form>
 
-    <button id="exportBtn">Export Conversation</button>
-    <button id="exportMdBtn">Export Conversation as Markdown</button>
-
-    <input type="file" id="importBtn">
-    <button id="toggleDarkModeBtn">Toggle Dark Mode</button>
+    <div id="buttons">
+        <label for="importBtn" class="button">Import Conversation</label>
+        <button id="exportBtn">Export Conversation</button>
+        <button id="exportMdBtn">Export Conversation as Markdown</button>
+        <button id="toggleDarkModeBtn">Toggle Dark Mode</button>
+        <input type="file" id="importBtn" style="display:none;">
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="chat.js"></script>
