@@ -1,0 +1,178 @@
+body {
+    font-family: 'IBM Plex Mono', monospace;
+    transition: background-color 0.3s ease;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+body.light-mode {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+#chatBox {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    height: 400px;
+    overflow-y: auto;
+    transition: border-color 0.3s ease;
+    flex-grow: 1;
+}
+
+body.light-mode #chatBox {
+    border-color: #000000;
+}
+
+body.dark-mode #chatBox {
+    border-color: #ffffff;
+}
+
+#userInput {
+    width: 70%;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px 20px;
+}
+
+form#chatForm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+form#chatForm select,
+form#chatForm input[type="text"] {
+    flex-grow: 1;
+    padding: 5px;
+    font-size: 14px;
+}
+
+form#chatForm button[type="submit"],
+#buttons .button {
+    padding: 5px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #ccc;
+    border: none;
+    color: black;
+}
+
+form#chatForm button[type="submit"]:hover,
+#buttons .button:hover {
+    background-color: #aaa;
+}
+
+#chatForm .user {
+    color: yellow;
+}
+
+#chatForm .assistant {
+    color: green;
+}
+
+#exportBtn,
+#exportMdBtn,
+#toggleDarkModeBtn {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+
+
+.spinner {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid blue;
+    width: 80px;
+    height: 80px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -40px;
+    margin-left: -40px;
+    display: none;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* semi-transparent background to "fade out" the rest of the page */
+    z-index: 999;
+    /* ensure the overlay appears above other elements */
+}
+
+#overlayContent {
+    max-width: 80%;
+    /* or whatever maximum width you prefer */
+    padding: 20px;
+    background-color: lightgrey;
+    border: 1px solid #333;
+    border-radius: 5px;
+    /* optional, for rounded corners */
+    overflow: auto;
+    /* in case the content is too long, it will scroll */
+    z-index: 1000;
+    /* ensure the content appears above the overlay */
+}
+
+.pinned-message {
+    display: block;
+    max-width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+#pinnedMessages {
+    display: flex;
+    flex-wrap: wrap;
+    /* Enables the items to wrap onto multiple lines */
+    gap: 10px;
+    /* Adds some space between each item */
+}
+
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
